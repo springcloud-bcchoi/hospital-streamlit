@@ -6,10 +6,22 @@ from datetime import datetime, timedelta
 import json
 
 # 타이틀 설정
-st.title("요양병원 Data View")
+st.title("Prometheus Data View")
 
 # 사용자 입력 UI
-query = st.text_input("Enter Prometheus Query:", "radar_v2_range")
+# Prometheus 쿼리 선택
+query = st.selectbox(
+    "Select Prometheus Query:",
+    [
+        "radar_v2_breath",
+        "radar_v2_heart",
+        "radar_v2_detect_count",
+        "radar_v2_fall",
+        "radar_v2_presence",
+        "radar_v2_range",
+        "radar_v2_rssi",
+    ]
+)
 selected_date = st.date_input("Select a Date")
 start_time = st.selectbox("Select Start Time", [f"{str(i).zfill(2)}:00:00" for i in range(0, 24, 3)])
 step = st.number_input("Step (in seconds):", min_value=1, value=10, step=1)
