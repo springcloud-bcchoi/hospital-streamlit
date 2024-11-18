@@ -1,0 +1,8 @@
+.idea
+.env
+env
+.cache/
+.streamlit/
+files/
+cache.db
+app
