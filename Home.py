@@ -23,8 +23,9 @@ query = st.selectbox(
     ]
 )
 selected_date = st.date_input("Select a Date")
-start_time = st.selectbox("Select Start Time", [f"{str(i).zfill(2)}:00:00" for i in range(0, 24, 3)])
-step = st.number_input("Step (in seconds):", min_value=1, value=10, step=1)
+start_time = st.selectbox("Select Start Time (End Time will be 3 hours later)",
+                          [f"{str(i).zfill(2)}:00:00" for i in range(0, 24, 3)])
+step = st.number_input("Step (in seconds, minimum 6):", min_value=6, value=10, step=1)
 
 # API URL
 url = "https://3iztvmb7bj.execute-api.ap-northeast-2.amazonaws.com/prometheus/v1/query_range"
