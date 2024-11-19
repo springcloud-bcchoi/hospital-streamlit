@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 import json
 
 # 타이틀 설정
-st.title("Prometheus Data View")
+st.title("Hospital Radar Data")
 
 # 사용자 입력 UI
 # Prometheus 쿼리 선택
@@ -98,9 +98,9 @@ if all_data:
         # CSV 다운로드 버튼
         csv = df.to_csv(index=False)
         # 파일 이름 간소화
-        start_str = start_datetime.strftime("%H%M")
-        end_str = end_datetime.strftime("%H%M")
-        file_name = f"{selected_date}_{start_str}T{end_str}_{step}_{selected_job}_{query}.csv"
+        start_str = start_datetime.strftime("%H")
+        end_str = end_datetime.strftime("%H")
+        file_name = f"{selected_date}_{start_str}T{end_str}_{selected_job}_{query}.csv"
         st.download_button(
             label=f"Download Data for {selected_job}",
             data=csv,
@@ -129,9 +129,9 @@ if all_data:
     csv_data = combined_df.to_csv(index=False)
 
     # 파일 이름 간소화
-    start_str = start_datetime.strftime("%H%M")
-    end_str = end_datetime.strftime("%H%M")
-    all_file_name = f"{selected_date}_{start_str}T{end_str}_{step}.csv"
+    start_str = start_datetime.strftime("%H")
+    end_str = end_datetime.strftime("%H")
+    all_file_name = f"{selected_date}_{start_str}T{end_str}_{query}.csv"
 
     # CSV 다운로드 버튼
     st.download_button(
