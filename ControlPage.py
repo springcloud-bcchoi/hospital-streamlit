@@ -46,7 +46,7 @@ st.title("Control Command Interface")
 # 서버 정보 입력
 st.sidebar.header("Server Configuration")
 server_ip = st.sidebar.text_input("Server IP", "kibana.a2uictai.com")
-server_port = st.sidebar.number_input("Server Port", value=17095, step=1)
+server_port = st.sidebar.number_input("Server Port", value=0000, step=1)
 
 # 서버 연결
 if "client_socket" not in st.session_state:
@@ -65,16 +65,25 @@ else:
 # Control 메시지 입력
 st.header("Send Control Message")
 uid = st.text_input("UID", "device123")
-command = st.text_input("Command", "start")
+command = st.text_input("Command", "reset")
 value = st.text_input("Value (optional)", "")
 
-# 전송 버튼
-if st.button("Send Command"):
-    if not uid or not command:
+# 전송 버튼 상태 관리
+if "is_sending" not in st.session_state:
+    st.session_state.is_sending = False
+
+if st.button("Send Command", disabled=st.session_state.is_sending):
+    if not uid.strip() or not command.strip():
         st.error("UID와 Command는 필수 항목입니다.")
     else:
-        # 서버로 Control 메시지 전송
-        response = send_control_message(st.session_state.client_socket, uid, command, value)
+        # 입력값 가져오기
+        uid_value = uid.strip()
+        command_value = command.strip()
+        optional_value = value.strip()
+
+        st.session_state.is_sending = True
+        with st.spinner("Sending command..."):
+            response = send_control_message(st.session_state.client_socket, uid_value, command_value, optional_value)
 
         # 응답 결과 표시
         if response.get("status") == "success":
@@ -83,3 +92,5 @@ if st.button("Send Command"):
         else:
             st.error("Failed to send command.")
             st.json(response)
+
+        st.session_state.is_sending = False

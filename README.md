@@ -3,3 +3,5 @@
 2. source ./env/bin/activate
 3. pip install -r requirements.txt
 4. streamlit run Home.py
+5. https://springcloud-bcchoi-hospital-streamlit-home-pck9ca.streamlit.app/
+6. https://github.com/springcloud-bcchoi/hospital-streamlit/blob/main/Home.py
