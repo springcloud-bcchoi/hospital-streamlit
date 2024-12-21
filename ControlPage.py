@@ -46,14 +46,24 @@ st.title("Control Command Interface")
 # 서버 정보 입력
 st.sidebar.header("Server Configuration")
 server_ip = st.sidebar.text_input("Server IP", "kibana.a2uictai.com")
-server_port = st.sidebar.number_input("Server Port", value=0000, step=1)
+server_port = st.sidebar.number_input("Server Port", value=17090, step=1)
+
+
+# 암호 입력
+st.sidebar.subheader("Authentication")
+password = st.sidebar.text_input("Enter Password", type="password")
+
 
 # 서버 연결
 if "client_socket" not in st.session_state:
     st.session_state.client_socket = None
 
 if st.sidebar.button("Connect to Server"):
-    st.session_state.client_socket = initialize_socket(server_ip, int(server_port))
+    if password == "12345678":  # 암호 검증
+        st.session_state.client_socket = initialize_socket(server_ip, int(server_port))
+    else:
+        st.sidebar.error("Invalid password. Please try again.")
+
 
 # 소켓 상태 표시
 st.sidebar.subheader("Socket Status")
@@ -65,7 +75,7 @@ else:
 # Control 메시지 입력
 st.header("Send Control Message")
 uid = st.text_input("UID", "device123")
-command = st.text_input("Command", "reset")
+command = st.text_input("Command", "mins")
 value = st.text_input("Value (optional)", "")
 
 # 전송 버튼 상태 관리
