@@ -86,7 +86,7 @@ if st.button("Send Command", disabled=st.session_state.is_sending):
             response = send_control_message(st.session_state.client_socket, uid_value, command_value, optional_value)
 
         # 응답 결과 표시
-        if response.get("status") == "success":
+        if response.get("status") == "success" or response.get("type") == "cli":
             st.success("Command sent successfully!")
             st.json(response)
         else:
