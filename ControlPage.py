@@ -41,10 +41,10 @@ def send_control_message(client_socket, uid, command, value):
         return {"status": "error", "error": str(e)}
 
 # Streamlit UI
-st.title("Control Command Interface")
+st.title("Bullseye Control Command Interface")
 
 # 서버 정보 입력
-st.sidebar.header("Server Configuration")
+st.sidebar.header("AWS Server Configuration")
 server_ip = st.sidebar.text_input("Server IP", "kibana.a2uictai.com")
 server_port = st.sidebar.number_input("Server Port", value=0000, step=1)
 
